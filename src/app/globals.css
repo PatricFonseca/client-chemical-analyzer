@@ -31,3 +31,14 @@ body {
     text-wrap: balance;
   }
 }
+
+@layer base {
+  html {
+    --color-primary: #f43f5e;
+    --color-secondary: #a9112a;
+    --color-tertiary: #2e1116;
+    --color-typography: #0a0a0a;
+  }
+
+  @import "./styles/themes/dark-theme.css";
+}

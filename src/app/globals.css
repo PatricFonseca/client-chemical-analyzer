@@ -34,9 +34,10 @@ body {
 
 @layer base {
   html {
-    --color-primary: #f43f5e;
-    --color-secondary: #a9112a;
+    --color-primary: #fbfffe;
+    --color-secondary: #faa916;
     --color-tertiary: #2e1116;
+    --color-danger: #a9112a;
     --color-typography: #0a0a0a;
   }
 

@@ -1,6 +1,7 @@
 html[data-theme="dark-theme"] {
-  --color-primary: #c33a11;
-  --color-secondary: #06110b;
+  --color-primary: #1b1b1e;
+  --color-secondary: #6d676e;
   --color-buttons: #89da59;
+  --color-danger: #a9112a;
   --color-typography: #fafafa;
 }

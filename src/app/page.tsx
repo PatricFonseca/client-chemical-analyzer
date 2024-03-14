@@ -1,47 +1,34 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { postcss } from "tailwindcss";
-import { NavBar } from "./components/Navbar";
-import SearchBox from "./components/SearchBox";
-import ResultTable from "./components/ResultTable";
-import {
-  QueryClient,
-  QueryClientProvider,
-  useMutation,
-  useQueryClient,
-} from "@tanstack/react-query";
-import { chemicalAnalyser } from "./api/chemicalAnalyser";
+import { NavBar } from "@/app/components/Navbar";
+import ResultTable from "@/app/components/ResultTable";
+import SearchBox from "@/app/components/SearchBox";
+import { ChemicalAnalysisDTO } from "@/app/dto/chemicalDto";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import React from "react";
+import Home from "./pages/home/page";
 
-export default function Home() {
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      console.log(localStorage.getItem("theme"));
-    }
-  });
-
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  function toggleTheme() {
-    document.documentElement.classList.toggle("dark");
-    setIsDarkMode(!isDarkMode);
-  }
+export default function DefaultPage() {
   const queryClient = new QueryClient();
+  // const { data } = useQuery({
+  //   queryKey: ["chemicalAnalyser"],
+  //   queryFn: () =>
+  //     queryClient.getQueryData(["chemicalAnalyser"]) as ChemicalAnalysisDTO,
+  // });
+
+  // const queryClient = useQueryClient();
+
+  // const { data } = useQuery({
+  //   queryKey: ["chemicalAnalyser"],
+  //   queryFn: () =>
+  //     queryClient.getQueryData(["chemicalAnalyser"]) as ChemicalAnalysisDTO,
+  // });
 
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <NavBar />
-        <main className="flex min-h-screen flex-col items-center p-24 bg-primary">
-          {/* <button onClick={toggleTheme}>Toggle Theme</button> */}
-          <h1 className="text-3xl font-bold text-typography">Aurora</h1>
-          <SearchBox />
-          <ResultTable data={undefined} />
-        </main>
+        <Home />
       </QueryClientProvider>
     </>
   );
-}
-{
-  /* // data={queryClient.getQueryData(["chemicalAnalyser"]) as JSON} */
 }

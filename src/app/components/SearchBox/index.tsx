@@ -28,38 +28,20 @@ export default function SearchBox() {
   const mutation = useMutation({
     mutationFn: chemicalAnalyser,
     onSuccess: (data) => {
-      console.log(data);
       queryClient.setQueryData(["chemicalAnalyser"], data);
     },
-    // mutationFn: async (words: string) => {
-    //   const requestOptions = {
-    //     method: "POST",
-    //     body: JSON.stringify({ words }),
-    //     headers: new Headers({
-    //       "Content-Type": "application/json",
-    //       Accept: "application/json",
-    //     }),
-    //   };
-
-    //   const response = await fetch(
-    //     `http://localhost:3000/quimic`,
-    //     requestOptions
-    //   );
-    //   const data = await response.json();
-    //   return data;
-    // },
   });
 
   async function handleAnalyse() {
     const words =
       "Aqua (Water), Sodium Laureth Sulfate, Cocamide DEA, Cocamidopropyl Betaine";
-    console.log("fuowow");
+
     mutation.mutate(words);
   }
 
-  const analyserJSON = queryClient.getQueryData([
-    "chemicalAnalyser",
-  ]) as ResultAnalyse;
+  // const analyserJSON = queryClient.getQueryData([
+  //   "chemicalAnalyser",
+  // ]) as ResultAnalyse;
 
   return (
     <>
@@ -91,7 +73,7 @@ export default function SearchBox() {
         Analisar <SearchIcon />
       </button>
 
-      <ResultTable data={analyserJSON?.words} />
+      {/* <ResultTable data={analyserJSON?.words} />
       {analyserJSON?.words?.map((wordK) => {
         return (
           <ul className="flex text-typography">
@@ -101,8 +83,7 @@ export default function SearchBox() {
             <li>{wordK.status}</li>
           </ul>
         );
-      })}
-      {/* <h2 className="text-typography">{data}</h2> */}
+      })} */}
     </>
   );
 }

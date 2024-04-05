@@ -1,13 +1,18 @@
 import React from "react";
 import { WithContext as ReactTags, Tag } from "react-tag-input";
 
+interface TagInputProps {
+  tags: Tag[];
+  setTags: (tags: Tag[]) => void;
+}
+
 const KeyCodes = {
   comma: 188,
   enter: 13,
 };
 
-export default function TagInput() {
-  const [tags, setTags] = React.useState<Tag[]>([]);
+export default function TagInput({ tags, setTags }: TagInputProps) {
+  // const [tags, setTags] = React.useState<Tag[]>([]);
 
   const delimiters = [KeyCodes.comma, KeyCodes.enter];
 
@@ -17,6 +22,7 @@ export default function TagInput() {
 
   const handleAddition = (tag: Tag) => {
     setTags([...tags, tag]);
+    // setTagsP([...tags, tag]); //adding to parent state
   };
 
   const handleDrag = (tag: Tag, currPos: number, newPos: number) => {
@@ -39,9 +45,9 @@ export default function TagInput() {
         tagInput: "mt-2",
         tagInputField:
           "rounded bg-primary p-1 border border-secondary ring-3 outline-secondary text-zinc-800 w-full",
-        tag: "rounded bg-secondary pl-2 mr-1",
+        tag: " rounded-full bg-gray-300 text-typography pl-2 mr-1 p-[0.02rem]",
         remove:
-          "text-primary hover:bg-danger hover:text-white rounded px-1 ml-2",
+          "text-danger hover:bg-red-900 rounded-full  hover:text-white ml-1 p-1 ",
         selected: "flex flex-wrap gap-1 ",
       }}
       placeholder="Digite o nome e pressione enter para adicionar..."

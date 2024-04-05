@@ -43,6 +43,12 @@ const config: Config = {
   //     },
   //   },
   // },
+  variants: {
+    extends: {
+      backgroundColor: ["disabled"],
+      textColor: ["disabled"],
+    },
+  },
   darkMode: "class",
   plugins: [],
 };

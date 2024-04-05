@@ -1,0 +1,16 @@
+.custom_file_upload {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: var(--color-secondary);
+  color: white;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 8px;
+  gap: 0.5rem;
+}
+
+.custom_file_upload:hover {
+  background-color: var(--color-secondary);
+  opacity: 0.8;
+}

@@ -19,7 +19,7 @@ export default function ResultTable({ data }: ResultProps) {
           <tbody>
             {data.map((item: ChemicalWordDTO) => {
               return (
-                <tr className="border-b">
+                <tr className="border-b" key={item.name}>
                   <td className="border-x-2 pl-2">{item.name}</td>
                   <td className="border-x-2 pl-2">{item.status}</td>
                 </tr>

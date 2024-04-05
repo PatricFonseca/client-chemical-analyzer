@@ -1,9 +1,10 @@
 import SearchIcon from "@/app/icons/SearchIcon";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TagInput from "../TagInput";
 import { chemicalAnalyser } from "@/app/api/chemicalAnalyser";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import ResultTable from "../ResultTable";
+import { Tag } from "react-tag-input";
 
 interface Words {
   word: string;
@@ -16,7 +17,7 @@ interface ResultAnalyse {
 
 export default function SearchBox() {
   const queryClient = useQueryClient();
-
+  const [tags, setTags] = React.useState<Tag[]>([]);
   // const mutation = useMutation({
   //   mutationFn: chemicalAnalyser,
   //   onSuccess: (data) => {
@@ -30,22 +31,24 @@ export default function SearchBox() {
     onSuccess: (data) => {
       queryClient.setQueryData(["chemicalAnalyser"], data);
     },
+    onError: (error) => {
+      error.message = error ? error.message : "Ocorreu um erro inesperado";
+    },
   });
 
-  async function handleAnalyse() {
-    const words =
-      "Aqua (Water), Sodium Laureth Sulfate, Cocamide DEA, Cocamidopropyl Betaine";
+  function handleAnalyse() {
+    const formattedWords = tags.map((tag) => tag.text).join(",");
 
-    mutation.mutate(words);
+    mutation.mutate(formattedWords);
   }
 
-  // const analyserJSON = queryClient.getQueryData([
-  //   "chemicalAnalyser",
-  // ]) as ResultAnalyse;
+  useEffect(() => {
+    console.log("tags", tags);
+  }, [tags]);
 
   return (
     <>
-      <div className="flex gap-2 mb-4">
+      {/* <div className="flex gap-2 mb-4">
         <input
           type="search"
           className="bg-primary p-2 border border-secondary rounded-2xl focus:outline outline-secondary  text-typography"
@@ -57,13 +60,11 @@ export default function SearchBox() {
         >
           Pesquisar <SearchIcon />
         </button>
-      </div>
-
+      </div> */}
       <h1 className="text-typography">
         Digite os ingredientes faltantes <br /> e tecle enter para inserir
       </h1>
-      <TagInput />
-
+      <TagInput tags={tags} setTags={setTags} />
       <br />
       <button
         type="button"
@@ -73,6 +74,13 @@ export default function SearchBox() {
         Analisar <SearchIcon />
       </button>
 
+      {mutation.isPending && <h3 className="text-typography">Carregando...</h3>}
+      {mutation.isError && (
+        <h3 className="text-typography">
+          Ocorreu um erro ao realizar a análise
+        </h3>
+        // <p className="text-typography">{mutation.error.message}</p>
+      )}
       {/* <ResultTable data={analyserJSON?.words} />
       {analyserJSON?.words?.map((wordK) => {
         return (

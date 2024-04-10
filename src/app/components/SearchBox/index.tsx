@@ -61,7 +61,7 @@ export default function SearchBox() {
           Pesquisar <SearchIcon />
         </button>
       </div> */}
-      <h1 className="text-typography">
+      <h1 className="text-typography p-2">
         Digite os ingredientes faltantes <br /> e tecle enter para inserir
       </h1>
       <TagInput tags={tags} setTags={setTags} />

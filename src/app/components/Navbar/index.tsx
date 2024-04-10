@@ -6,12 +6,12 @@ export function NavBar() {
   }
 
   return (
-    <header className="flex justify-between align-center p-2 bg-secondary">
+    <header className="w-full flex justify-between align-center p-2 bg-secondary">
       <h1 className="text-3xl font-bold">Aurora project</h1>
       <select
         name="themes"
         id="themes"
-        className="text-zinc-800 rounded colors bg-rose-100 p-2 border"
+        className="text-zinc-800 rounded colors bg-rose-100 p-2 border inline-block"
         onChange={(e) => changeTheme(e.target.value)}
       >
         <option value="">Original</option>

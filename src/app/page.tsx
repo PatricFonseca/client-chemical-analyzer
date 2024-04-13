@@ -1,7 +1,7 @@
 "use client";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import Home from "./pages/home/page";
+import Home from "./pages/home/";
 
 export default function DefaultPage() {
   const queryClient = new QueryClient();

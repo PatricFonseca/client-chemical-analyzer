@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import InfoBox from "@/app/components/InfoBox";
 import { InputImage } from "@/app/components/InputImage";
@@ -18,7 +18,7 @@ export default function Home() {
     { stepNumber: "2" },
     { stepNumber: "3" },
   ]);
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
   const [imageSrc, setImageSrc] = React.useState<string | null>(null);
 
   const { data } = useQuery<ChemicalAnalysisDTO>({

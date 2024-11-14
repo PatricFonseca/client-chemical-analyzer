@@ -15,9 +15,14 @@ interface ResultAnalyse {
   words: Words[];
 }
 
-export default function SearchBox() {
+interface SearchBoxProps {
+  tags: Tag[];
+  setTags: (tags: Tag[]) => void;
+}
+
+export default function SearchBox({ tags, setTags }: SearchBoxProps) {
   const queryClient = useQueryClient();
-  const [tags, setTags] = React.useState<Tag[]>([]);
+  // const [tags, setTags] = React.useState<Tag[]>([]);
   // const mutation = useMutation({
   //   mutationFn: chemicalAnalyser,
   //   onSuccess: (data) => {
@@ -48,19 +53,6 @@ export default function SearchBox() {
 
   return (
     <>
-      {/* <div className="flex gap-2 mb-4">
-        <input
-          type="search"
-          className="bg-primary p-2 border border-secondary rounded-2xl focus:outline outline-secondary  text-typography"
-          placeholder="Pesquisar..."
-        />
-        <button
-          type="button"
-          className="flex items-center justify-center gap-2 px-2 w-[10rem] focus:outline-none text-white bg-red-700 hover:bg-red-800  rounded-lg dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-        >
-          Pesquisar <SearchIcon />
-        </button>
-      </div> */}
       <h1 className="text-typography p-2">
         Digite os ingredientes faltantes <br /> e tecle enter para inserir
       </h1>

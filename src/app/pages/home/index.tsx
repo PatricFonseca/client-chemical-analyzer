@@ -1,17 +1,20 @@
-// "use client";
+"use client";
 
+import { SearchComponentsByImage } from "@/app/api/searchComponents";
 import InfoBox from "@/app/components/InfoBox";
 import { InputImage } from "@/app/components/InputImage";
 import { NavBar } from "@/app/components/Navbar";
 import ResultTable from "@/app/components/ResultTable";
 import SearchBox from "@/app/components/SearchBox";
 import { Stepper } from "@/app/components/Stepper/index";
-import { ChemicalAnalysisDTO } from "@/app/dto/chemicalDto";
+import { ChemicalAnalysisDTO, ProductImageResult } from "@/app/dto/chemicalDto";
 import { AnalyzeIcon } from "@/app/icons/AnalyzeIcon";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
+import { Tag } from "react-tag-input";
 
 export default function Home() {
+  const [isLoading, setIsloading] = useState(false);
   const [stepp, setStepp] = useState(0);
   const [steps, setSteps] = useState([
     { stepNumber: "1" },
@@ -20,12 +23,37 @@ export default function Home() {
   ]);
   // const queryClient = useQueryClient();
   const [imageSrc, setImageSrc] = React.useState<string | null>(null);
+  const [tags, setTags] = React.useState<Tag[]>([]);
 
   const { data } = useQuery<ChemicalAnalysisDTO>({
     queryKey: ["chemicalAnalyser"],
     // queryFn: () =>
     //   queryClient.getQueryData(["chemicalAnalyser"]) as ChemicalAnalysisDTO,
   });
+
+  async function handleSearchComponents() {
+    if (!imageSrc) return;
+
+    setIsloading(true);
+
+    try {
+      const data: ProductImageResult = await SearchComponentsByImage(imageSrc);
+
+      console.log(data);
+
+      // data.composition.map((item) => {
+      //   setTags((prevTags) => [...prevTags, { id: item, text: item }]);
+      // });
+      const composition = data.composition.split(",");
+      composition.map((item) => {
+        setTags((prevTags) => [...prevTags, { id: item, text: item }]);
+      });
+
+      setIsloading(false);
+    } finally {
+      setIsloading(false);
+    }
+  }
 
   // const cachedData = queryClient.getQueryData(["chemicalAnalyser"]) as
   //   | ChemicalAnalysisDTO
@@ -59,19 +87,25 @@ export default function Home() {
                 type="button"
                 className="flex items-center gap-2 bg-red-700 hover:bg-red-500 text-primary rounded p-2 disabled:bg-gray-200 disabled:text-gray-500 mb-8"
                 disabled={!imageSrc}
+                onClick={handleSearchComponents}
               >
                 Buscar componentes
                 <AnalyzeIcon width={20} height={20} stroke="white" />
               </button>
 
-              <SearchBox />
+              {isLoading ? (
+                <p>Carregando...</p>
+              ) : (
+                <SearchBox tags={tags} setTags={setTags} />
+              )}
             </>
           )}
 
           {stepp === 2 && (
             <>
               <h1 className="text-2xl">Resultados</h1>
-              <ResultTable data={data?.words} />
+              <ResultTable data={data} />
+              {/* <ResultTable data={data?.words} /> */}
             </>
           )}
         </main>

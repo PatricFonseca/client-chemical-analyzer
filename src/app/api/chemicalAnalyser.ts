@@ -20,29 +20,17 @@
 import { fetchFromApi } from "@/app/infra/adapters/fetch-adapter";
 
 export const chemicalAnalyser = async (words: string) => {
-  // const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-  // if (!apiUrl) {
-  //   throw new Error("NEXT_PUBLIC_API_URL is not defined");
-  // }
-
-  // const requestOptions = {
-  //   method: "POST",
-  //   body: JSON.stringify({ words }),
-  //   headers: new Headers({
-  //     "Content-Type": "application/json",
-  //     Accept: "application/json",
-  //   }),
-  // };
-
+ 
   const obj = {
-    words: words,
+    "words": words,
   };
 
   try {
     const resp = await fetchFromApi<JSON>({
-      urlRoute: "quimic",
+      // urlRoute: "quimic",
+      urlRoute: 'chemical-analysis/check-composition',
       method: "POST",
-      body: JSON.parse(JSON.stringify(obj)),
+      body: JSON.stringify(obj),
       headers: {
         "Content-Type": "application/json",
       },

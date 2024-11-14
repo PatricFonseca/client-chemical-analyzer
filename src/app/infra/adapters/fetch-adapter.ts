@@ -1,7 +1,7 @@
-interface ApiRequest<T> {
+export interface ApiRequest {
   urlRoute: string;
   method?: "GET" | "POST" | "PUT" | "DELETE"; // Common HTTP methods
-  body?: T; // Optional request body (can be any type)
+  body?: BodyInit; // Optional request body (can be any type)
   headers?: { [key: string]: string }; // Optional custom headers
 }
 
@@ -12,7 +12,7 @@ interface ApiResponse<T> {
 }
 
 export const fetchFromApi = async <T>(
-  request: ApiRequest<T>
+  request: ApiRequest
 ): Promise<ApiResponse<T>> => {
   const URL = process.env.NEXT_PUBLIC_API_URL;
   const { urlRoute, method = "GET", body, headers = {} } = request;
@@ -21,12 +21,20 @@ export const fetchFromApi = async <T>(
   try {
     const response = await fetch(`${URL}/${urlRoute}`, {
       method,
-      body: body ? JSON.stringify(body) : undefined,
+      body: request.body,
       headers: {
-        "Content-Type": "application/json",
+        // "Content-Type": "application/json",
         ...headers,
       },
     });
+    // const response = await fetch(`${URL}/${urlRoute}`, {
+    //   method,
+    //   body: body ? JSON.stringify(body) : undefined,
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     ...headers,
+    //   },
+    // });
 
     if (!response.ok) {
       throw new Error("API request failed");
@@ -34,13 +42,16 @@ export const fetchFromApi = async <T>(
 
     const data: T = await response.json();
 
+    console.log('data', data)
+
     return {
       data,
       status: response.status,
       statusText: response.statusText,
     };
-  } catch (error) {
+  } catch (error: any) {
     // Handle API errors here, e.g., throw a custom error or log for debugging
-    throw new Error("API request failed");
+    throw new Error(error.message);
+    // throw new Error("API request failed");
   }
 };

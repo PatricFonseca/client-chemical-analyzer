@@ -6,3 +6,10 @@ export interface ChemicalWordDTO {
 export interface ChemicalAnalysisDTO {
   words: ChemicalWordDTO[];
 }
+
+export interface ProductImageResult {
+  product: string;
+  composition: string;
+  // composition: string[];
+  
+}

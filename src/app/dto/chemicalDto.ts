@@ -1,11 +1,18 @@
-export interface ChemicalWordDTO {
-  name: string;
-  status: string;
+export enum CaseTypes {
+  Low='low',
+  Medium='medium',
+  High="high"
 }
 
-export interface ChemicalAnalysisDTO {
-  words: ChemicalWordDTO[];
+export interface ChemicalWordDTO {
+  name: string;
+  risk: CaseTypes;
+  description: string;
 }
+
+// export interface ChemicalAnalysisDTO {
+//   words: ChemicalWordDTO[];
+// }
 
 export interface ProductImageResult {
   product: string;

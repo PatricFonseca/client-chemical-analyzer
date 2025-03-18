@@ -32,5 +32,6 @@ export async function SearchComponentsByImage(
 
   const response = await fetchFromApi<ProductImageResult>(optionRequest);
   const data = response.data;
+  console.log(data);
   return data;
 }

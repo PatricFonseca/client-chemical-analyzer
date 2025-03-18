@@ -1,5 +1,7 @@
 import { useRef } from "react";
 import { Button } from "../ui/button";
+import { AlertTriangle, Camera, ChevronDown, Plus, Upload } from "lucide-react";
+import CameraAnalyzer from "../CameraAnalyzer";
 
 export const LandingSection = () => {
     const fileInputRef = useRef(null);
@@ -14,7 +16,7 @@ export const LandingSection = () => {
             const video = document.createElement('video');
             video.srcObject = stream;
             video.play();
-    
+
             // Tirar foto após 3 segundos
             setTimeout(() => {
                 const canvas = document.createElement('canvas');
@@ -23,7 +25,7 @@ export const LandingSection = () => {
                 canvas.getContext('2d').drawImage(video, 0, 0);
                 const imageData = canvas.toDataURL('image/jpeg');
                 setImage(imageData);
-    
+
                 // Parar a câmera
                 stream.getTracks().forEach(track => track.stop());
                 setActiveSection('analysis');
@@ -32,24 +34,25 @@ export const LandingSection = () => {
             console.error("Erro ao acessar câmera:", err);
         }
     };
-    
+
     const handleFileUpload = (event) => {
         const file = event.target.files[0];
         const reader = new FileReader();
-    
+
         reader.onload = (e) => {
             setImage(e.target.result);
             setActiveSection('analysis');
         };
-    
+
         if (file) {
             reader.readAsDataURL(file);
         }
     };
-    
+
     <div className="min-h-screen bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500">
         <div className="max-w-6xl mx-auto p-6">
             {/* Hero Section */}
+            <CameraAnalyzer />
             <div className="py-20 text-center text-white">
                 <h1 className="text-5xl font-bold mb-6 animate-fade-in">
                     Descubra a Composição Química
@@ -113,6 +116,8 @@ export const LandingSection = () => {
             <div className="text-center py-12">
                 <ChevronDown size={40} className="text-white mx-auto animate-bounce" />
             </div>
+
+
         </div>
     </div>
 };

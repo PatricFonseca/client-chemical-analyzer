@@ -19,6 +19,7 @@ export const fetchFromApi = async <T>(
   // console.log("url<<", JSON.parse(URLbody);
 
   try {
+    console.log(`${URL}/${urlRoute}`);
     const response = await fetch(`${URL}/${urlRoute}`, {
       method,
       body: request.body,
@@ -42,7 +43,7 @@ export const fetchFromApi = async <T>(
 
     const data: T = await response.json();
 
-    console.log('data', data)
+    console.log("data", data);
 
     return {
       data,

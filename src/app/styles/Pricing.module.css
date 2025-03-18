@@ -1,0 +1,58 @@
+.pricingHeader {
+    text-align: center;
+    padding: 4rem 0;
+  }
+  
+  .plans {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
+  }
+  
+  .pricingCard {
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+  }
+  
+  .pricingCard:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  }
+  
+  .price {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 1rem 0;
+  }
+  
+  .featureList {
+    list-style: none;
+    margin: 2rem 0;
+  }
+  
+  .featureList li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .subscribeButton {
+    background: var(--gradient);
+    color: white;
+    width: 100%;
+    padding: 1rem;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.3s ease;
+  }
+  
+  .subscribeButton:hover {
+    transform: translateY(-2px);
+  }
